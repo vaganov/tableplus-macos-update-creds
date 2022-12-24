@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=60.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tableplus_macos_update_creds"
+version = "0.0.1"
+authors = [{name="Nikita Vaganov", email="nikita.e.vaganov@gmail.com"}]
+description = "A python library to update credentials for a connection in TablePlus macOS client without using GUI"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: MacOS :: MacOS X",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/vaganov/tableplus-macos-update-creds"
+"Bug Tracker" = "https://github.com/vaganov/tableplus-macos-update-creds/issues"
