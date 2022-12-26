@@ -19,6 +19,7 @@ def update_creds(
         app_path: str = '/Applications/TablePlus.app',
         connections_path: str = '~/Library/Application Support/com.tinyapp.TablePlus/Data/Connections.plist',
         service_name: str = 'com.tableplus.TablePlus',
+        label: Optional[str] = 'TablePlus',
         teamid: Optional[str] = None,
         keychain_password: Optional[str] = None,
 ):
@@ -43,6 +44,8 @@ def update_creds(
         defaults to '~/Library/Application Support/com.tinyapp.TablePlus/Data/Connections.plist'
     :param str service_name: service name used by TablePlus in the system keychain.
         defaults to 'com.tableplus.TablePlus'
+    :param str label: password entry label in the system keychain.
+        defaults to 'TablePlus'
     :param str teamid: teamid used by TablePlus in ACL.
         obtained automatically via 'codesign' if not specified
     :param str keychain_password: password for the default keychain (required to set ACL for keychain entry).
@@ -67,8 +70,9 @@ def update_creds(
     update_password_in_keychain(
         password,
         account_name=f'{ID}_database',
-        app_path=app_path,
+        label=label,
         service_name=service_name,
+        app_path=app_path,
         teamid=teamid,
         keychain_password=keychain_password,
     )

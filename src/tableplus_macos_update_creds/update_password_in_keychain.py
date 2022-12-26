@@ -13,15 +13,19 @@ def update_password_in_keychain(
         password: str,
         *,
         account_name: str,
-        app_path: str,
+        label: Optional[str] = None,
         service_name: str,
+        app_path: str,
         teamid: Optional[str] = None,
         keychain_password: Optional[str] = None,
 ):
+    label = label or service_name
+
     result = subprocess.run(
         [
             'security', 'add-generic-password',
             '-a', account_name,  # Specify account name
+            '-l', label,  # Specify label
             '-s', service_name,  # Specify service name
             '-w', password,  # Specify password to be added
             # '-T', '/usr/bin/security',  # Specify an application which may access this item
