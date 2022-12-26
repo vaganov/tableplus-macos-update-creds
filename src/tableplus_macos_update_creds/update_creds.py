@@ -50,12 +50,12 @@ def update_creds(
     """
     connections_path = os.path.expanduser(connections_path)
     with open(connections_path, mode='rb') as file:
-        plist = plistlib.load(file)
+        connections = plistlib.load(file)
 
-    for record in plist:
-        if record['ConnectionName'] == connection_name:
-            record['DatabaseUser'] = username
-            ID = record['ID']
+    for connection in connections:
+        if connection['ConnectionName'] == connection_name:
+            connection['DatabaseUser'] = username
+            ID = connection['ID']
             break
     else:
         if create:
@@ -78,5 +78,5 @@ def update_creds(
     with TemporaryDirectory() as tmp_dir:
         tmp_path = f'{tmp_dir}/Connections.plist'
         with open(tmp_path, mode='wb') as file:
-            plistlib.dump(plist, file)
+            plistlib.dump(connections, file)
         shutil.move(src=tmp_path, dst=connections_path)
