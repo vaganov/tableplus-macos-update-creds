@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "tableplus_macos_update_creds"
-version = "0.0.2"
+version = "0.1.0"
 authors = [{name="Nikita Vaganov", email="nikita.e.vaganov@gmail.com"}]
 description = "A python library to update credentials for a connection in TablePlus macOS client without using GUI"
 readme = "README.md"
