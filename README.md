@@ -3,7 +3,7 @@ A python library to update credentials for a connection in TablePlus macOS clien
 
 [TablePlus](https://tableplus.com) is a neat SQL GUI client. As virtually any decent SQL client it allows juggling
 multiple connections, storing the credentials [in a secure manner](https://tableplus.com/privacy). However, updating
-a lot of ephemeral credentials via GUI may be quite annoying even though importing connections
+a lot of ephemeral credentials via GUI may be somewhat annoying even though importing connections
 [is supported](https://docs.tableplus.com/gui-tools/manage-connections#export-and-import-connections).
 
 This library's main goal is to allow updating credentials programmatically, without using GUI.
@@ -12,9 +12,7 @@ Please note that this project is not affiliated with TablePlus and all the techn
 reverse engineering. The library has only been tested against TablePlus 4.2.0 (build 388) on macOS 13.1 with python
 3.7/3.8/3.9/3.10. The techniques employed may stop working if any of these happens:
 - TablePlus changes its connections config format
-- TablePlus changes keychain account name format used for storing connection passwords
 - macOS changes ACL mechanics
-- codesign output format changes
 
 ## Example
 The following code may be used as a shell script

@@ -18,6 +18,7 @@ def update_creds(
         create: bool = False,
         app_path: str = '/Applications/TablePlus.app',
         connections_path: str = '~/Library/Application Support/com.tinyapp.TablePlus/Data/Connections.plist',
+        account_name: str = '{ID}_database',
         service_name: str = 'com.tableplus.TablePlus',
         label: Optional[str] = 'TablePlus',
         teamid: Optional[str] = None,
@@ -27,8 +28,7 @@ def update_creds(
 
     The function will first find the specified connection in the TablePlus connections config. It will then update the
     corresponding entry in the system keychain as well as the partition list for that entry so that the password is
-    available for TablePlus application and '/usr/bin/security' utility. Finally, the TablePlus connections config will
-    be updated.
+    available for TablePlus application. Finally, the TablePlus connections config will be updated.
     The function may raise:
         - 'RuntimeError' if any spawned subprocess ('codesign', 'security') returns non-zero
         - 'KeyError' if specified connection is not present and 'create == False'
@@ -42,6 +42,8 @@ def update_creds(
         defaults to '/Applications/TablePlus.app'
     :param str connections_path: path to the TablePath connections config.
         defaults to '~/Library/Application Support/com.tinyapp.TablePlus/Data/Connections.plist'
+    :param str account_name: template for account name in the system keychain fulfilled with connection fields.
+        defaults to '{ID}_database'
     :param str service_name: service name used by TablePlus in the system keychain.
         defaults to 'com.tableplus.TablePlus'
     :param str label: password entry label in the system keychain.
@@ -57,8 +59,6 @@ def update_creds(
 
     for connection in connections:
         if connection['ConnectionName'] == connection_name:
-            connection['DatabaseUser'] = username
-            ID = connection['ID']
             break
     else:
         if create:
@@ -69,13 +69,15 @@ def update_creds(
 
     update_password_in_keychain(
         password,
-        account_name=f'{ID}_database',
+        account_name=account_name.format(**connection),
         label=label,
         service_name=service_name,
         app_path=app_path,
         teamid=teamid,
         keychain_password=keychain_password,
     )
+
+    connection['DatabaseUser'] = username
 
     # TablePlus would not pick changes in the config file if edited inplace. Moreover, it would override them on close.
     # We have to move another file over instead -- this works fine.

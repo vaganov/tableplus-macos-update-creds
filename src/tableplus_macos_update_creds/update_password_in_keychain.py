@@ -61,8 +61,8 @@ def update_password_in_keychain(
     result = subprocess.run(
         [
             'security', 'set-generic-password-partition-list',
-            '-a', account_name,  # Specify account name
-            '-s', service_name,  # Specify service name
+            '-a', account_name,  # Match "account" string
+            '-s', service_name,  # Match "service" string
             '-S', f'teamid:{teamid}',  # Comma-separated list of allowed partition IDs
             '-k', keychain_password,  # The password for the keychain
         ],
